@@ -26,11 +26,13 @@ st.sidebar.title("🔑 API Keys")
 tavily_api_key = st.sidebar.text_input("Tavily Search API Key", type="password", help="Enter your Tavily Search API key.")
 groq_api_key = st.sidebar.text_input("GROQ API Key", type="password", help="Enter your GROQ API key.")
 
-if "TAVILY_API_KEY" not in os.environ:
-        os.environ["TAVILY_API_KEY"] = tavily_api_key
+if tavily_api_key:
+    if "TAVILY_API_KEY" not in os.environ:
+            os.environ["TAVILY_API_KEY"] = tavily_api_key
+if groq_api_key:
+    if "GROQ_API_KEY" not in os.environ:
+            os.environ["GROQ_API_KEY"] = groq_api_key
 
-if "GROQ_API_KEY" not in os.environ:
-        os.environ["GROQ_API_KEY"] = groq_api_key
 email_gen = EmailReplyGenerator()
 # App Title
 st.title("📧 AI Email ReplyPro Generator")
