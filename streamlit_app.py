@@ -26,29 +26,29 @@ st.sidebar.title("🔑 API Keys")
 tavily_api_key = st.sidebar.text_input("Tavily Search API Key", type="password", help="Enter your Tavily Search API key.")
 groq_api_key = st.sidebar.text_input("GROQ API Key", type="password", help="Enter your GROQ API key.")
 
-if tavily_api_key:
+st.title("📧 AI Email ReplyPro Generator")
+user_input = st.text_area("Enter your prompt:", placeholder="E.g., Request for a meeting...")
+submit_button = st.button("Generate Email Reply")
+if tavily_api_key and groq_api_key:
     if "TAVILY_API_KEY" not in os.environ:
             os.environ["TAVILY_API_KEY"] = tavily_api_key
-if groq_api_key:
     if "GROQ_API_KEY" not in os.environ:
             os.environ["GROQ_API_KEY"] = groq_api_key
 
-email_gen = EmailReplyGenerator()
-# App Title
-st.title("📧 AI Email ReplyPro Generator")
+    email_gen = EmailReplyGenerator()
+    # App Title
 
-# User input field
-user_input = st.text_area("Enter your prompt:", placeholder="E.g., Request for a meeting...")
+    # User input field
 
-# Submit Button
-if st.button("Generate Email Reply"):
-    if user_input.strip() == "":
-        st.warning("⚠️ Please enter a valid prompt.")
-    else:
-        with st.spinner("Generating email reply... ✨"):
-            response = email_gen.generate_final_response(user_input)
-            st.success("✅ Email reply generated!")
-            st.markdown(f"<div class='chat-container'>{response}</div>", unsafe_allow_html=True)
+    # Submit Button
+    if submit_button:
+        if user_input.strip() == "":
+            st.warning("⚠️ Please enter a valid prompt.")
+        else:
+            with st.spinner("Generating email reply... ✨"):
+                response = email_gen.generate_final_response(user_input)
+                st.success("✅ Email reply generated!")
+                st.markdown(f"<div class='chat-container'>{response}</div>", unsafe_allow_html=True)
 
-# Footer
-st.markdown("<br><p style='text-align: center; color: gray;'>🚀 Built with Streamlit</p>", unsafe_allow_html=True)
+    # Footer
+    st.markdown("<br><p style='text-align: center; color: gray;'>🚀 Built with Streamlit</p>", unsafe_allow_html=True)
